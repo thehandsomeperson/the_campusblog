@@ -7,4 +7,7 @@
         Author: {{ post.author }} | Date: {{ post.update_time }}
     </p><br/>
     <p>{{ post.content }}</p>
+    {% if post.author == request.user %}
+        <a href="{% url 'blog:edit_post' post.id %}">Edit</a>
+    {% endif %}
 {% endblock %}
