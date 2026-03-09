@@ -53,3 +53,11 @@ def edit_post(request, post_id):
     else:
         form = CreatePostForm(instance=post)
     return render(request, 'blog/edit_post.html', context={'form': form})
+
+@login_required
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    if post.author != request.user:
+        return HttpResponseForbidden("You are not allowed to edit this post.")
+    delete_num = post.delete()
+    return redirect('blog:post_list')
