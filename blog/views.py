@@ -22,8 +22,13 @@ def create_post(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
+            if 'save_draft' in request.POST:
+                post.status = 'draft'
+            else:
+                post.status = 'published'
             post.save()
             return redirect('blog:post_list')
+
     else:
         form = CreatePostForm()
     return render(request, 'blog/create_post.html', context={'form': form})
