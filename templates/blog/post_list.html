@@ -5,7 +5,7 @@
     {% for post in posts %}
         <h5>Post Title: {{ post.title }}</h5>
         <p>Author: {{ post.author }}| Date: {{ post.update_time }}</p>
-        <p>{{ post.content }}</p>
+        <p>{{ post.content|truncatechars:100 }}</p>
     {% empty %}
         <p>No posts here</p>
     {% endfor %}
